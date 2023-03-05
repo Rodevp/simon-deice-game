@@ -29,6 +29,7 @@ function Table({ setWimMesage, setLoseMesage }) {
     const [sequencePlayer, setSequencePlayer] = useState([])
     const [quantityTabs, setQuantityTabs] = useState(0)
     const [level, setLevel] = useState(1)
+    const [userIsInGame, setUserIsInGame] = useState(false)
 
     const colors = ["yellow", "blue", "red", "green"]
 
@@ -41,7 +42,7 @@ function Table({ setWimMesage, setLoseMesage }) {
 
         const newSequencie = [];
 
-        for( let i = 0; i < level; i++) {
+        for (let i = 0; i < level; i++) {
             newSequencie.push(getColor());
         }
 
@@ -49,7 +50,6 @@ function Table({ setWimMesage, setLoseMesage }) {
         setLevel(level + 1);
 
     }
-
 
     const checkSequence = () => {
 
@@ -64,11 +64,12 @@ function Table({ setWimMesage, setLoseMesage }) {
         }
 
         if (
-            sequence.length > 0 && 
+            sequence.length > 0 &&
             JSON.stringify(sequence) !== JSON.stringify(sequencePlayer)
         ) {
-            console.log('lose', JSON.stringify(sequence) , JSON.stringify(sequencePlayer))
+            console.log('lose', JSON.stringify(sequence), JSON.stringify(sequencePlayer))
             messageLose()
+            setUserIsInGame(false)
             setLevel(1)
             setSequencePlayer([])
         }
@@ -78,7 +79,7 @@ function Table({ setWimMesage, setLoseMesage }) {
     const messageWin = () => {
         const messages = ["¡Genial!", "¡Increible!", "¡WOW!"]
         const randomNumber = Math.floor(Math.random() * messages.length)
-        setWimMesage( messages[randomNumber] )
+        setWimMesage(messages[randomNumber])
         setLoseMesage("")
     }
 
@@ -91,7 +92,7 @@ function Table({ setWimMesage, setLoseMesage }) {
     }
 
     useEffect(() => {
-        console.log('entrando a check', )
+        console.log('entrando a check',)
         if (sequence.length === sequencePlayer.length) {
             checkSequence()
             setQuantityTabs(0)
@@ -153,19 +154,23 @@ function Table({ setWimMesage, setLoseMesage }) {
                     }}
                 />
             </div>
-            <button
-                className={styles.button}
-                style={{
-                    backgroundColor: COLORS.purple,
-                    border: `1px solid ${COLORS.white}`,
-                    color: COLORS.white
-                }}
-                onClick={() => {
-                    sequenceColor()
-                }}
-            >
-                Jugar
-            </button>
+            {
+                userIsInGame === false &&
+                 <button
+                    className={styles.button}
+                    style={{
+                        backgroundColor: COLORS.purple,
+                        border: `1px solid ${COLORS.white}`,
+                        color: COLORS.white
+                    }}
+                    onClick={() => {
+                        sequenceColor()
+                        setUserIsInGame(true)
+                    }}
+                >
+                    Jugar
+                </button>
+            }
         </div>
     )
 }
