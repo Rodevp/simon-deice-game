@@ -84,7 +84,7 @@ function Table({ setWimMesage, setLoseMesage }) {
     }
 
     const messageLose = () => {
-        setLoseMesage("Oh No!")
+        setLoseMesage("¡Oh No!😢")
         setWimMesage("")
     }
 
@@ -92,7 +92,7 @@ function Table({ setWimMesage, setLoseMesage }) {
     }
 
     useEffect(() => {
-        console.log('entrando a check',)
+        console.log('entrando a check')
         if (sequence.length === sequencePlayer.length) {
             checkSequence()
             setQuantityTabs(0)
@@ -105,7 +105,6 @@ function Table({ setWimMesage, setLoseMesage }) {
         <div
             className={styles.table}
         >
-            <span>{JSON.stringify(sequence)}</span>
             <div
                 className={styles.contentDot}
             >
@@ -154,23 +153,22 @@ function Table({ setWimMesage, setLoseMesage }) {
                     }}
                 />
             </div>
-            {
-                userIsInGame === false &&
-                 <button
-                    className={styles.button}
-                    style={{
-                        backgroundColor: COLORS.purple,
-                        border: `1px solid ${COLORS.white}`,
-                        color: COLORS.white
-                    }}
-                    onClick={() => {
-                        sequenceColor()
-                        setUserIsInGame(true)
-                    }}
-                >
-                    Jugar
-                </button>
-            }
+
+            <button
+                className={styles.button}
+                style={{
+                    backgroundColor: userIsInGame ? 'gray' : COLORS.purple,
+                    border: `1px solid ${COLORS.white}`,
+                    color: COLORS.white,
+                }}
+                onClick={() => {
+                    sequenceColor()
+                    setUserIsInGame(true)
+                }}
+                disabled={userIsInGame}
+            >
+                Jugar
+            </button>
         </div>
     )
 }
