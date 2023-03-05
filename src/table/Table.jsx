@@ -23,14 +23,13 @@ function Dot({ color, grade, style, action }) {
 
 
 
-function Table() {
+function Table({ setWimMesage, setLoseMesage }) {
 
     const [sequence, setSequence] = useState([])
     const [sequencePlayer, setSequencePlayer] = useState([])
     const [quantityTabs, setQuantityTabs] = useState(0)
     const [level, setLevel] = useState(1)
-    const [idInterval, setIdInterval] = useState(null)
-    const [go, setGo] = useState(false)
+
     const colors = ["yellow", "blue", "red", "green"]
 
     const getColor = () => {
@@ -60,8 +59,8 @@ function Table() {
         ) {
             console.log('win', JSON.stringify(sequence), JSON.stringify(sequencePlayer))
             sequenceColor()
+            messageWin()
             setSequencePlayer([])
-            setQuantityTabs(0)
         }
 
         if (
@@ -69,16 +68,25 @@ function Table() {
             JSON.stringify(sequence) !== JSON.stringify(sequencePlayer)
         ) {
             console.log('lose', JSON.stringify(sequence) , JSON.stringify(sequencePlayer))
+            messageLose()
             setSequencePlayer([])
-            setQuantityTabs(0)
         }
 
     }
 
+    const messageWin = () => {
+        const messages = ["¡Genial!", "¡Increible!", "¡WOW!"]
+        const randomNumber = Math.floor(Math.random() * messages.length)
+        setWimMesage( messages[randomNumber] )
+        setLoseMesage("")
+    }
+
+    const messageLose = () => {
+        setLoseMesage("Oh No!")
+        setWimMesage("")
+    }
+
     const playSequence = () => {
-
-        
-
     }
 
     useEffect(() => {

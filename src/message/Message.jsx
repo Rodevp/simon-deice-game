@@ -1,7 +1,7 @@
 import styles from "./msg.module.css"
 import { COLORS } from "../colors"
 
-function Message({ message }) {
+function Message({ messageWin, messageLose }) {
     return (
         <div
             className={styles.msgTable}
@@ -10,7 +10,12 @@ function Message({ message }) {
                 className={styles.msg}
                 style={{ color: COLORS.white }}
             >
-                {message}
+                {
+                    messageWin !== "" && messageWin
+                }
+                {
+                    messageLose !== "" && messageLose
+                }
             </h2>
         </div>
     )
