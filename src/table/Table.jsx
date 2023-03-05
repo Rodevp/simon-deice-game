@@ -2,9 +2,10 @@ import styles from "./table.module.css"
 import { COLORS } from "../colors"
 
 
-function Dot({ color, grade, style }) {
+function Dot({ color, grade, style, action }) {
     return (
         <div
+            onClick={action}
             className={styles.dot}
             style={{
                 backgroundColor: color,
@@ -32,7 +33,7 @@ function Table() {
                     color={COLORS.yellow}
                     grade={"180deg"}
                     style={{
-                        top: 40
+                        top: 10
                     }}    
                 />
                 <Dot
@@ -53,10 +54,17 @@ function Table() {
                     color={COLORS.red} 
                     grade={"0deg"}
                     style={{
-                        bottom: 40
+                        bottom: 10
                     }}
                 />
             </div>
+            <button
+                className={styles.button}
+                style={{ backgroundColor: COLORS.purple, border: `1px solid ${COLORS.white}`, color: COLORS.white }}
+                onClick={() => { }}
+            >
+                Jugar
+            </button>
         </div>
     )
 }
