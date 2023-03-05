@@ -22,7 +22,6 @@ function Dot({ color, grade, style, action }) {
 }
 
 
-
 function Table({ setWimMesage, setLoseMesage }) {
 
     const [sequence, setSequence] = useState([])
@@ -30,6 +29,7 @@ function Table({ setWimMesage, setLoseMesage }) {
     const [quantityTabs, setQuantityTabs] = useState(0)
     const [level, setLevel] = useState(1)
     const [userIsInGame, setUserIsInGame] = useState(false)
+    const [idTimeout, setIdTimeout] = useState(0)
 
     const colors = ["yellow", "blue", "red", "green"]
 
@@ -58,6 +58,7 @@ function Table({ setWimMesage, setLoseMesage }) {
             JSON.stringify(sequence) === JSON.stringify(sequencePlayer)
         ) {
             console.log('win', JSON.stringify(sequence), JSON.stringify(sequencePlayer))
+            clearTimeout(idTimeout)
             sequenceColor()
             messageWin()
             setSequencePlayer([])
@@ -68,6 +69,7 @@ function Table({ setWimMesage, setLoseMesage }) {
             JSON.stringify(sequence) !== JSON.stringify(sequencePlayer)
         ) {
             console.log('lose', JSON.stringify(sequence), JSON.stringify(sequencePlayer))
+            clearTimeout(idTimeout)
             messageLose()
             setUserIsInGame(false)
             setLevel(1)
@@ -77,22 +79,33 @@ function Table({ setWimMesage, setLoseMesage }) {
     }
 
     const messageWin = () => {
+
         const messages = ["¡Genial!", "¡Increible!", "¡WOW!"]
         const randomNumber = Math.floor(Math.random() * messages.length)
         setWimMesage(messages[randomNumber])
         setLoseMesage("")
+        const id = setTimeout(() => {
+            setWimMesage("")
+        }, 500)
+
+        setTimeout(id)
+
     }
 
     const messageLose = () => {
         setLoseMesage("¡Oh No!😢")
-        setWimMesage("")
+        const id = setTimeout(() => {
+            setLoseMesage("")
+        }, 500)
+
+        setTimeout(id)
     }
 
     const playSequence = () => {
     }
 
     useEffect(() => {
-        console.log('entrando a check')
+
         if (sequence.length === sequencePlayer.length) {
             checkSequence()
             setQuantityTabs(0)
