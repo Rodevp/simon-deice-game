@@ -57,7 +57,6 @@ function Table({ setWimMesage, setLoseMesage }) {
             sequence.length > 0 &&
             JSON.stringify(sequence) === JSON.stringify(sequencePlayer)
         ) {
-            console.log('win', JSON.stringify(sequence), JSON.stringify(sequencePlayer))
             clearTimeout(idTimeout)
             sequenceColor()
             messageWin()
@@ -68,7 +67,6 @@ function Table({ setWimMesage, setLoseMesage }) {
             sequence.length > 0 &&
             JSON.stringify(sequence) !== JSON.stringify(sequencePlayer)
         ) {
-            console.log('lose', JSON.stringify(sequence), JSON.stringify(sequencePlayer))
             clearTimeout(idTimeout)
             messageLose()
             setUserIsInGame(false)
@@ -88,7 +86,7 @@ function Table({ setWimMesage, setLoseMesage }) {
             setWimMesage("")
         }, 1000)
 
-        setTimeout(id)
+        setIdTimeout(id)
 
     }
 
@@ -98,7 +96,7 @@ function Table({ setWimMesage, setLoseMesage }) {
             setLoseMesage("")
         }, 1000)
 
-        setTimeout(id)
+        setIdTimeout(id)
     }
 
     const playSequence = () => {
