@@ -60,7 +60,11 @@ function Table() {
             </div>
             <button
                 className={styles.button}
-                style={{ backgroundColor: COLORS.purple, border: `1px solid ${COLORS.white}`, color: COLORS.white }}
+                style={{ 
+                    backgroundColor: COLORS.purple,
+                    border: `1px solid ${COLORS.white}`,
+                    color: COLORS.white
+                }}
                 onClick={() => { }}
             >
                 Jugar

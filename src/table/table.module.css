@@ -7,7 +7,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: green;
 }
 
 .dot {
@@ -25,7 +24,6 @@
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 2rem;
-    background-color: red;
 }
 
 .button {
