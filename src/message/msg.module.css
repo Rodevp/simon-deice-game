@@ -1,0 +1,16 @@
+.msgTable {
+    width: 200px;
+    height: 180px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.msg {
+    font-size: 2.3rem;
+    transform: rotate(315deg);
+}
+
