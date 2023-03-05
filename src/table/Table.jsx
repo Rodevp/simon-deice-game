@@ -69,6 +69,7 @@ function Table({ setWimMesage, setLoseMesage }) {
         ) {
             console.log('lose', JSON.stringify(sequence) , JSON.stringify(sequencePlayer))
             messageLose()
+            setLevel(1)
             setSequencePlayer([])
         }
 
