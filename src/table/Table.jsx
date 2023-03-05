@@ -86,7 +86,7 @@ function Table({ setWimMesage, setLoseMesage }) {
         setLoseMesage("")
         const id = setTimeout(() => {
             setWimMesage("")
-        }, 500)
+        }, 1000)
 
         setTimeout(id)
 
@@ -96,7 +96,7 @@ function Table({ setWimMesage, setLoseMesage }) {
         setLoseMesage("¡Oh No!😢")
         const id = setTimeout(() => {
             setLoseMesage("")
-        }, 500)
+        }, 1000)
 
         setTimeout(id)
     }
