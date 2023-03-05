@@ -26,37 +26,65 @@ function Dot({ color, grade, style, action }) {
 function Table() {
 
     const [sequence, setSequence] = useState([])
-    const [level, setLevel] = useState(2)
+    const [sequencePlayer, setSequencePlayer] = useState([])
+    const [quantityTabs, setQuantityTabs] = useState(0)
+    const [level, setLevel] = useState(3)
+    const [idInterval, setIdInterval] = useState(null)
+    const [go, setGo] = useState(false)
+    const colors = ["yellow", "blue", "red", "green"]
 
     const getColor = () => {
-        const colors = ["yellow", "blue", "red", "green"]
         const randomNumber = Math.floor(Math.random() * colors.length)
         return colors[randomNumber]
     }
 
     const sequenceColor = () => {
 
-        if (level === 1) {
-            const copy = [...sequence]
-            copy.push(getColor())
-            setSequence(copy)
-        } 
+        const newSequencie = [];
 
-
-        if (level > 1) {
-            let flag = []
-            for (let i = 0; i < level; i++) {
-                flag.push(getColor())
-            }
-            setSequence(flag)
+        for( let i = 0; i < level; i++) {
+            newSequencie.push(getColor());
         }
+
+        setSequence(newSequencie);
+        setLevel(level + 1);
 
     }
 
 
-    useEffect(() => {
+    const checkSequence = () => {
 
-    }, [])
+        if (
+            sequence.length > 0 &&
+            JSON.stringify(sequence) === JSON.stringify(sequencePlayer)
+        ) {
+            console.log('win', JSON.stringify(sequence), JSON.stringify(sequencePlayer))
+        }
+
+        if (
+            sequence.length > 0 && 
+            JSON.stringify(sequence) !== JSON.stringify(sequencePlayer)
+        ) {
+            console.log('lose', JSON.stringify(sequence) , JSON.stringify(sequencePlayer))
+        }
+
+    }
+
+    const playSequence = () => {
+
+        
+
+    }
+
+    useEffect(() => {
+        console.log('entrando a check', )
+        if (sequence.length === sequencePlayer.length) {
+            checkSequence()
+            setQuantityTabs(0)
+        }
+
+    }, [quantityTabs])
+
 
     return (
         <div
@@ -73,6 +101,8 @@ function Table() {
                         top: 10
                     }}
                     action={() => {
+                        setSequencePlayer([...sequencePlayer, "yellow"])
+                        setQuantityTabs(quantityTabs + 1)
                     }}
                 />
                 <Dot
@@ -82,6 +112,8 @@ function Table() {
                         right: 60
                     }}
                     action={() => {
+                        setSequencePlayer([...sequencePlayer, "blue"])
+                        setQuantityTabs(quantityTabs + 1)
                     }}
                 />
                 <Dot
@@ -91,6 +123,8 @@ function Table() {
                         left: 60
                     }}
                     action={() => {
+                        setSequencePlayer([...sequencePlayer, "green"])
+                        setQuantityTabs(quantityTabs + 1)
                     }}
                 />
                 <Dot
@@ -100,6 +134,8 @@ function Table() {
                         bottom: 10
                     }}
                     action={() => {
+                        setSequencePlayer([...sequencePlayer, "red"])
+                        setQuantityTabs(quantityTabs + 1)
                     }}
                 />
             </div>
