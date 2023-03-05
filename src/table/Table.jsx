@@ -28,7 +28,7 @@ function Table() {
     const [sequence, setSequence] = useState([])
     const [sequencePlayer, setSequencePlayer] = useState([])
     const [quantityTabs, setQuantityTabs] = useState(0)
-    const [level, setLevel] = useState(3)
+    const [level, setLevel] = useState(1)
     const [idInterval, setIdInterval] = useState(null)
     const [go, setGo] = useState(false)
     const colors = ["yellow", "blue", "red", "green"]
@@ -59,6 +59,9 @@ function Table() {
             JSON.stringify(sequence) === JSON.stringify(sequencePlayer)
         ) {
             console.log('win', JSON.stringify(sequence), JSON.stringify(sequencePlayer))
+            sequenceColor()
+            setSequencePlayer([])
+            setQuantityTabs(0)
         }
 
         if (
@@ -66,6 +69,8 @@ function Table() {
             JSON.stringify(sequence) !== JSON.stringify(sequencePlayer)
         ) {
             console.log('lose', JSON.stringify(sequence) , JSON.stringify(sequencePlayer))
+            setSequencePlayer([])
+            setQuantityTabs(0)
         }
 
     }
