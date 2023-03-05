@@ -1,6 +1,15 @@
+@font-face {
+  font-family: 'sercular';
+  src: url('./fonts/SecularOne.ttf');
+}
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: 'sercular';
 }
 
+html {
+  background-color: #144272;
+}
