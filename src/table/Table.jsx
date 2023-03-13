@@ -3,9 +3,10 @@ import styles from "./table.module.css"
 import { COLORS } from "../colors"
 
 
-function Dot({ color, grade, style, action }) {
+function Dot({ color, grade, style, action, id = "" }) {
     return (
         <div
+            id={id}
             onClick={action}
             className={styles.dot}
             style={{
@@ -29,7 +30,6 @@ function Table({ setWimMesage, setLoseMesage }) {
     const [quantityTabs, setQuantityTabs] = useState(0)
     const [level, setLevel] = useState(1)
     const [userIsInGame, setUserIsInGame] = useState(false)
-    const [idTimeout, setIdTimeout] = useState(0)
 
     const colors = ["yellow", "blue", "red", "green"]
 
@@ -49,6 +49,8 @@ function Table({ setWimMesage, setLoseMesage }) {
         setSequence(newSequencie);
         setLevel(level + 1);
 
+        return newSequencie
+
     }
 
     const checkSequence = () => {
@@ -57,9 +59,9 @@ function Table({ setWimMesage, setLoseMesage }) {
             sequence.length > 0 &&
             JSON.stringify(sequence) === JSON.stringify(sequencePlayer)
         ) {
-            clearTimeout(idTimeout)
-            sequenceColor()
-            messageWin()
+            playSequence()
+            const id = messageWin()
+            clearTimeout(id)
             setSequencePlayer([])
         }
 
@@ -67,8 +69,8 @@ function Table({ setWimMesage, setLoseMesage }) {
             sequence.length > 0 &&
             JSON.stringify(sequence) !== JSON.stringify(sequencePlayer)
         ) {
-            clearTimeout(idTimeout)
-            messageLose()
+            const id = messageLose()
+            clearTimeout(id)
             setUserIsInGame(false)
             setLevel(1)
             setSequencePlayer([])
@@ -86,7 +88,7 @@ function Table({ setWimMesage, setLoseMesage }) {
             setWimMesage("")
         }, 1000)
 
-        setIdTimeout(id)
+        return id
 
     }
 
@@ -96,10 +98,33 @@ function Table({ setWimMesage, setLoseMesage }) {
             setLoseMesage("")
         }, 1000)
 
-        setIdTimeout(id)
+        return id
+    }
+
+    const highLightButton = (color) => {
+        
+        let idTimeout;
+        const button = document.getElementById(color)
+        button.style.opacity = "0.5"
+
+        setTimeout(() => {
+            button.style.opacity = "1"
+        }, 500)
+        console.log('id sequence tm', id)
+        return idTimeout
+
     }
 
     const playSequence = () => {
+        
+        const startSequence = sequenceColor()
+
+        startSequence.forEach((color, i) => {
+            
+            const id = highLightButton(color)
+            clearTimeout(id)
+
+        })
     }
 
     useEffect(() => {
@@ -129,6 +154,7 @@ function Table({ setWimMesage, setLoseMesage }) {
                         setSequencePlayer([...sequencePlayer, "yellow"])
                         setQuantityTabs(quantityTabs + 1)
                     }}
+                    id="yellow"
                 />
                 <Dot
                     color={COLORS.skyBlue}
@@ -140,6 +166,7 @@ function Table({ setWimMesage, setLoseMesage }) {
                         setSequencePlayer([...sequencePlayer, "blue"])
                         setQuantityTabs(quantityTabs + 1)
                     }}
+                    id="blue"
                 />
                 <Dot
                     color={COLORS.green}
@@ -151,6 +178,7 @@ function Table({ setWimMesage, setLoseMesage }) {
                         setSequencePlayer([...sequencePlayer, "green"])
                         setQuantityTabs(quantityTabs + 1)
                     }}
+                    id="green"
                 />
                 <Dot
                     color={COLORS.red}
@@ -162,6 +190,7 @@ function Table({ setWimMesage, setLoseMesage }) {
                         setSequencePlayer([...sequencePlayer, "red"])
                         setQuantityTabs(quantityTabs + 1)
                     }}
+                    id="red"
                 />
             </div>
 
@@ -173,8 +202,8 @@ function Table({ setWimMesage, setLoseMesage }) {
                     color: COLORS.white,
                 }}
                 onClick={() => {
-                    sequenceColor()
                     setUserIsInGame(true)
+                    playSequence()
                 }}
                 disabled={userIsInGame}
             >

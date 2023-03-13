@@ -6,7 +6,7 @@ function Header() {
   return (
     <header
         className={styles.header}
-        style={{ backgroundColor: COLORS.purple, color: COLORS.white  }}
+        style={{ backgroundColor: COLORS.white  }}
     >
         <img
             className={styles.img}
@@ -15,7 +15,7 @@ function Header() {
         />
         <h1
            className={styles.title}
-           style={{ color: COLORS.white  }} 
+           style={{ color: COLORS.blueVeryDark  }} 
         >
             Simon Dice
         </h1>

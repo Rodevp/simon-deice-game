@@ -6,5 +6,7 @@ export const COLORS = {
     blueMedium: "#0081C9",
     blueDark: "#144272",
     purple: "#3F0071",
-    white: "#FBFEFB"
+    white: "#FBFEFB",
+    blueMedium: "#2b3550",
+    blueVeryDark: "#1b2132"
 }
