@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import styles from "./table.module.css"
 import { COLORS } from "../colors"
 
+import "./active.css"
 
 function Dot({ color, grade, style, action, id = "" }) {
     return (
@@ -30,6 +31,7 @@ function Table({ setWimMesage, setLoseMesage }) {
     const [quantityTabs, setQuantityTabs] = useState(0)
     const [level, setLevel] = useState(1)
     const [userIsInGame, setUserIsInGame] = useState(false)
+    const [time, setTime] = useState(1000)
 
     const colors = ["yellow", "blue", "red", "green"]
 
@@ -60,8 +62,7 @@ function Table({ setWimMesage, setLoseMesage }) {
             JSON.stringify(sequence) === JSON.stringify(sequencePlayer)
         ) {
             playSequence()
-            const id = messageWin()
-            clearTimeout(id)
+            messageWin()
             setSequencePlayer([])
         }
 
@@ -69,8 +70,7 @@ function Table({ setWimMesage, setLoseMesage }) {
             sequence.length > 0 &&
             JSON.stringify(sequence) !== JSON.stringify(sequencePlayer)
         ) {
-            const id = messageLose()
-            clearTimeout(id)
+            messageLose()
             setUserIsInGame(false)
             setLevel(1)
             setSequencePlayer([])
@@ -83,12 +83,12 @@ function Table({ setWimMesage, setLoseMesage }) {
         const messages = ["¡Genial!", "¡Increible!", "¡WOW!"]
         const randomNumber = Math.floor(Math.random() * messages.length)
         setWimMesage(messages[randomNumber])
-        setLoseMesage("")
+        
         const id = setTimeout(() => {
             setWimMesage("")
         }, 1000)
 
-        return id
+        clearTimeout(id)
 
     }
 
@@ -98,33 +98,36 @@ function Table({ setWimMesage, setLoseMesage }) {
             setLoseMesage("")
         }, 1000)
 
-        return id
+        clearTimeout(id)
     }
 
-    const highLightButton = (color) => {
-        
-        let idTimeout;
-        const button = document.getElementById(color)
-        button.style.opacity = "0.5"
-
-        setTimeout(() => {
-            button.style.opacity = "1"
-        }, 500)
-        console.log('id sequence tm', id)
-        return idTimeout
-
-    }
 
     const playSequence = () => {
         
         const startSequence = sequenceColor()
+        let step = 0
+        let idInterval;
 
-        startSequence.forEach((color, i) => {
+        idInterval = setInterval(() => {
+
+            const element = window.document.getElementById(startSequence[step])
+
+            element?.classList.add('active')
+
+            let id = setTimeout(() => { 
+                element?.classList.remove('active')
+             }, time / 2)
             
-            const id = highLightButton(color)
-            clearTimeout(id)
+            if (step === startSequence.length) {
+                clearTimeout(id)
+                clearInterval(idInterval)
+            }
 
-        })
+            step++
+
+        }, time)
+
+
     }
 
     useEffect(() => {
@@ -135,7 +138,6 @@ function Table({ setWimMesage, setLoseMesage }) {
         }
 
     }, [quantityTabs])
-
 
     return (
         <div
