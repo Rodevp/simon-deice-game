@@ -61,9 +61,9 @@ function Table({ setWimMesage, setLoseMesage }) {
             sequence.length > 0 &&
             JSON.stringify(sequence) === JSON.stringify(sequencePlayer)
         ) {
-            playSequence()
             messageWin()
             setSequencePlayer([])
+            playSequence()
         }
 
         if (
@@ -100,7 +100,6 @@ function Table({ setWimMesage, setLoseMesage }) {
 
         clearTimeout(id)
     }
-
 
     const playSequence = () => {
         
